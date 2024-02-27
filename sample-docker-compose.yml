@@ -2,12 +2,22 @@ version: '3.6'
 
 services:
   api:
-    image: quay.io/go-skynet/local-ai:latest
+    image: quay.io/go-skynet/local-ai:master-cublas-cuda12-ffmpeg
     ports:
       - 8080:8080
     volumes:
-      - ./models:/models:cached
+      - C:\localai\models:/models:cached
+      - C:\localai\images:/tmp/generated/images/
     command: ["/usr/bin/local-ai"]
+    env_file:
+      - stack.env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
   frontend:
     build:
