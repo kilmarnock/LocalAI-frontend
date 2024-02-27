@@ -9,8 +9,6 @@ services:
       - C:\localai\models:/models:cached
       - C:\localai\images:/tmp/generated/images/
     command: ["/usr/bin/local-ai"]
-    env_file:
-      - stack.env
     deploy:
       resources:
         reservations:
